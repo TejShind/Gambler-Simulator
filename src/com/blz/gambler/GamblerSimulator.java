@@ -6,7 +6,7 @@ public class GamblerSimulator {
 
     public static void main(String[] args) {
 
-        System.out.println("Initial Stake is " + DAY_STAKE + " and Bet is " + Bet);
+        System.out.println("Initial Stake is " + DAY_STAKE + " and Bet is " + Bet );
 
     }
 }
