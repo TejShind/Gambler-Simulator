@@ -4,45 +4,44 @@ public class GamblerSimulator {
     public static final int DAY_STAKE = 100;
     public static final int BET = 1;
     public static final int PERCENTAGE_50 = 50; //(DAY_STAKE / 100) * 50;
-    public static final int Winning_resign = DAY_STAKE + PERCENTAGE_50;
-    public static final int Losing_resign = DAY_STAKE - PERCENTAGE_50;
-    public static final int START_DAY = 1;
-    public static final int MAXIMUM_DAY = 20;
+    public static final int WINNING_MARGIN = DAY_STAKE + PERCENTAGE_50;
+    public static final int LOSING_MARGIN = DAY_STAKE - PERCENTAGE_50;
+    public static final int MONTH_DAY = 30;
     public static final int STAKES_PER_DAY = 50;
-    public static final int START_DOLLARS = 0;
 
     public static void main(String[] args) {
-        int days = START_DAY;
-        int totalCash = DAY_STAKE;
-        int totalDollars = START_DOLLARS;
+        int days = 1;
+        int totalDollars = 0;
 
         System.out.println("Initial Stake is " + DAY_STAKE + "$  and Bet is " + BET + "$ ");
-        for (days = START_DAY; days <= MAXIMUM_DAY; days++) {
-
-            while (totalCash < Winning_resign && totalCash > Losing_resign) {
+        //Calculate for Month,to know gamblers stake each day
+        for (days = 1; days <= MONTH_DAY; days++) {
+            int totalCash = DAY_STAKE;
+            //Either earn 150 or loose 50
+            while (totalCash < WINNING_MARGIN && totalCash > LOSING_MARGIN) {
+                //Initialising Random number for Win or Loose
                 int bet = (int) (Math.floor(Math.random() * 10) % 2);
                 System.out.println(bet);
                 if (bet == 1) {
-                    totalCash += BET;
-                    System.out.println("Gambler WON the bet  " + totalCash);
+                    totalCash += BET;//stake will increase
                 } else {
-                    totalCash -= BET;
-                    System.out.println("Gambler LOST the bet " + totalCash);
+                    totalCash -= BET;//stake will decrease
                 }
             }
-            if (totalCash == Winning_resign) {
+            if (totalCash == WINNING_MARGIN) {
                 totalDollars += STAKES_PER_DAY;
-                System.out.println("Gambler WON by " + totalCash);
+                System.out.println("Gambler WON by " + totalDollars + " on day" + days);
             } else {
                 totalDollars -= STAKES_PER_DAY;
-                System.out.println("Gambler LOST by " + totalCash);
+                System.out.println("Gambler LOST by " + totalDollars + " on day" + days);
             }
         }
-        if (totalDollars > START_DOLLARS) {
+        if (totalDollars > 0) {
             System.out.println("Gambler is won the " + totalDollars);
         } else {
             System.out.println("Gambler is lost the " + totalDollars);
         }
     }
-}
+    }
+
 
