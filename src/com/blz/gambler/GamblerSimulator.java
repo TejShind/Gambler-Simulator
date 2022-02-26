@@ -12,6 +12,11 @@ public class GamblerSimulator {
     public static void main(String[] args) {
         int days = 1;
         int totalDollars = 0;
+        int count = 0;
+        int wonCount = 0;
+        int lostCount = 0;
+        int maxWonCount = 0;
+        int maxLostCount = 0;
 
         System.out.println("Initial Stake is " + DAY_STAKE + "$  and Bet is " + BET + "$ ");
         //Calculate for Month,to know gamblers stake each day
@@ -24,9 +29,18 @@ public class GamblerSimulator {
                 System.out.println(bet);
                 if (bet == 1) {
                     totalCash += BET;//stake will increase
+                    wonCount++;
+                    if (maxWonCount < wonCount) {
+                        maxWonCount = wonCount;
+                    }
                 } else {
                     totalCash -= BET;//stake will decrease
+                    lostCount++;
+                    if (maxLostCount < lostCount) {
+                        maxLostCount = lostCount;
+                    }
                 }
+                count++;
             }
             if (totalCash == WINNING_MARGIN) {
                 totalDollars += STAKES_PER_DAY;
@@ -37,9 +51,9 @@ public class GamblerSimulator {
             }
         }
         if (totalDollars > 0) {
-            System.out.println("Gambler is won the " + totalDollars);
+            System.out.println("Gambler is won the " + totalDollars + " and Luckiest  " + maxWonCount + " Unluckiest " + maxLostCount + " maximum won out of " + count);
         } else {
-            System.out.println("Gambler is lost the " + totalDollars);
+            System.out.println("Gambler is lost the " + totalDollars + " and Unluckiest " + maxLostCount + " Unluckiest " + maxWonCount + " maximum lost out of " + count);
         }
     }
     }
